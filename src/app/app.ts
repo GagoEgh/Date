@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ShowDate } from './main/show-date/show-date';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet,ShowDate],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
