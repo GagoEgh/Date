@@ -1,1 +1,11 @@
-<p>now-date works!</p>
+<div class="wrapper">
+    <div class="nowDate">
+        <p class="time">{{nowTime$|async}}</p>
+        <p class="date">{{nowDate$|async}}</p>
+        <div class="hover-block"> 
+            <p>{{date|date:'d MMMM, y'}}</p>
+            <p>{{date|date:'EEEE, HH:mm' }} (local time)</p>
+        </div>
+    </div>
+</div>
+

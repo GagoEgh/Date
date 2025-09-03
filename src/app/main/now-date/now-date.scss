@@ -1,0 +1,57 @@
+.wrapper{
+    margin: 20% 50%;
+    .nowDate{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        width: fit-content;
+        height: 40px;
+        border: 1px solid;
+        border-radius: 5px;
+        background: rgb(243, 242, 242);
+        transition: all 1s;
+        cursor: pointer;
+
+        .time{
+            align-self: end;
+            margin: 0;
+            padding: 0;
+        }
+
+        .date{
+            margin: 0;
+            padding: 0;
+        }
+
+        &:hover{
+            background: white;
+            .hover-block{
+                display: block;
+                position: absolute;
+                top:-110px;
+                left: 0;
+                z-index: 999;
+                transition: all 2s;
+                width: 200px;
+                border-radius: 5px;
+                -webkit-box-shadow: -3px 6px 18px -8px rgba(66, 68, 90, 1);
+                -moz-box-shadow: -3px 6px 18px -8px rgba(66, 68, 90, 1);
+                box-shadow: -3px 6px 18px -8px rgba(66, 68, 90, 1);
+                padding: 10px;
+
+                p{
+                    margin: 0;
+                    padding: 0;
+                    padding: 5px;
+                }
+            }
+        }
+
+        .hover-block{
+            display: none;
+        }
+    }
+
+
+}
