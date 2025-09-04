@@ -1,0 +1,60 @@
+.calendar{
+    position: relative;
+    width: 100%;
+
+    .header{
+        background: rgb(232 236 238);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: inherit;
+        transition: transform 0.3s ease;
+        z-index: 999;
+
+        .dropDown{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            height: 50px;
+            .title{
+
+            }
+            
+            .lift{
+                align-self: center;
+            }
+        }
+
+        .nav{
+            .time{
+
+            }
+
+            .arrow{
+
+            }
+        }
+    }
+
+    .header.open {
+        transform: translateY(280px);
+    }
+
+    .table{
+        opacity: 1;
+        background-color: gold;
+        overflow: hidden;
+        height: 300px;             
+        transition: opacity 1.2s ease;
+    }
+
+    .table.close {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .footer{
+        height: 70px;
+        background-color: red;
+    }
+}

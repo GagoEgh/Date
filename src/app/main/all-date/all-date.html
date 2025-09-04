@@ -1,1 +1,21 @@
-<p>all-date works!</p>
+<div class="calendar">
+    <header class="header" #header>
+        <div class="dropDown">
+            <div class="title">hingshabti, 4 september</div>
+            <div class="lift" (click)="changeTableHeight()">
+                <app-arrow-down-svg
+                [width]="'18px'" 
+                height="'18px'"></app-arrow-down-svg>
+            </div>
+        </div>
+    </header>
+    <div class="table" #table>
+        <nav class="nav">
+            <div class="time"></div>
+            <div class="arrow"></div>
+        </nav>
+    </div>
+    <footer class="footer">
+        <div class="notification"></div>
+    </footer>
+</div>

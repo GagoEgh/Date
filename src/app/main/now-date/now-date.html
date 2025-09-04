@@ -1,14 +1,18 @@
-<div class="wrapper">
-    <div class="nowDate" 
-    (click)="showCalendar()"
-    (clickOutside)="clickOutside($event)"
-    clickOutside>
-        <p class="time">{{nowTime$|async}}</p>
-        <p class="date">{{nowDate$|async}}</p>
-        <div class="hover-block" [style.display]="isShowCalendar?'none':'block'"> 
-            <p>{{date|date:'d MMMM, y'}}</p>
-            {{weekDay}} {{nowTime$|async}} (local time)
+<div class="container">
+    <app-all-date></app-all-date>
+    <div class="wrapper">
+        <div class="nowDate" 
+            (click)="showCalendar()"
+            (clickOutside)="clickOutside($event)"
+            clickOutside>
+            <p class="time">{{nowTime$|async}}</p>
+            <p class="date">{{nowDate$|async}}</p>
+            <div class="hover-block" [style.display]="isShowCalendar?'none':'block'"> 
+                <p>{{date|date:'d MMMM, y'}}</p>
+                {{weekDay}} {{nowTime$|async}} (local time)
+            </div>
         </div>
     </div>
 </div>
+
 

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { formatNowDate, formatTime } from '../../helpers-function/date-helpers-functions';
 import { ClickOutsideDirective } from '../../directives/click-outside'
+import { AllDate } from '../all-date/all-date';
 
   enum Week {
     Sunday,
@@ -18,7 +19,7 @@ import { ClickOutsideDirective } from '../../directives/click-outside'
 
 @Component({
   selector: 'app-now-date',
-  imports: [AsyncPipe,DatePipe,ClickOutsideDirective],
+  imports: [AsyncPipe,DatePipe,ClickOutsideDirective,AllDate],
   templateUrl: './now-date.html',
   styleUrl: './now-date.scss'
 })
