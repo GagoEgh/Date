@@ -1,57 +1,72 @@
-.wrapper{
-    margin: 10% 30%;
-    .nowDate{
-        position: relative;
+.container{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    .wrapper{
         display: flex;
-        flex-direction: column;
-        padding: 5px;
-        width: fit-content;
-        height: 40px;
-        border: 1px solid rgb(243, 242, 242);
-        border-radius: 5px;
-        background: rgb(243, 242, 242);
-        transition: all 1s;
-        cursor: pointer;
+        justify-content: flex-end;
 
-        .time{
-            align-self: end;
-            margin: 0;
-            padding: 0;
+        .item{
+            width: 300px;
         }
 
-        .date{
-            margin: 0;
-            padding: 0;
+        .nowDate{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 5px;
+            width: fit-content;
+            height: 40px;
+            border: 1px solid rgb(243, 242, 242);
+            border-radius: 5px;
+            background: rgb(243, 242, 242);
+            transition: all 1s;
+            cursor: pointer;
+
+            .time{
+                align-self: end;
+                margin: 0;
+                padding: 0;
+            }
+
+            .date{
+                margin: 0;
+                padding: 0;
+            }
+
         }
 
-        &:hover{
+        .nowDate:hover{
             background: white;
             .hover-block{
-               opacity: 1;
+                opacity: 1;
+                pointer-events: auto;
             }
         }
 
         .hover-block{
-           opacity: 0;
-           position: absolute;
-           top:-90px;
-           left: 0;
-           z-index: 999;
-           transition: all 2s;
-           width: 180px;
-           border-radius: 5px;
-           -webkit-box-shadow: -3px 6px 18px -8px rgba(66, 68, 90, 1);
-           -moz-box-shadow: -3px 6px 18px -8px rgba(66, 68, 90, 1);
-           box-shadow: -3px 6px 18px -8px rgba(66, 68, 90, 1);
-           padding: 10px;
-
-           p{
-               margin: 0;
-               padding: 0;
-               padding: 5px;
-           }
-        }
+            opacity: 0;
+            position: absolute;
+            pointer-events: none;
+            bottom:70px;
+            right: 20px;
+            z-index: 999;
+            transition: all 2s;
+            width: 180px;
+            border-radius: 5px;
+            -webkit-box-shadow: -3px 6px 18px -8px rgba(66, 68, 90, 1);
+            -moz-box-shadow: -3px 6px 18px -8px rgba(66, 68, 90, 1);
+            box-shadow: -3px 6px 18px -8px rgba(66, 68, 90, 1);
+            padding: 10px;
+            background: white;
+            p{
+                margin: 0;
+                padding: 0;
+                padding: 5px;
+            }
+        }   
     }
-
 
 }

@@ -1,9 +1,13 @@
 <div class="container">
-    <app-all-date></app-all-date>
+    <div>
+        <app-all-date [isShowCalendar]="isShowCalendar" (eventDivElement)="eventDivElement($event)"></app-all-date>
+    </div>
     <div class="wrapper">
+        <div class="item"></div>
         <div class="nowDate" 
             (click)="showCalendar()"
             (clickOutside)="clickOutside($event)"
+            [allDate]="allDate"
             clickOutside>
             <p class="time">{{nowTime$|async}}</p>
             <p class="date">{{nowDate$|async}}</p>

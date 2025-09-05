@@ -1,11 +1,20 @@
-<div class="calendar">
+<div class="calendar" #calendar >
     <header class="header" #header>
         <div class="dropDown">
             <div class="title">hingshabti, 4 september</div>
             <div class="lift" (click)="changeTableHeight()">
-                <app-arrow-down-svg
-                [width]="'18px'" 
-                height="'18px'"></app-arrow-down-svg>
+                @if(!isCloseTable){
+                    <app-arrow-down-svg
+                        [width]="'18px'" 
+                        [height]="'18px'">
+                    </app-arrow-down-svg>
+                }@else {
+                    <app-arrow-up-svg
+                        [width]="'18px'" 
+                        [height]="'18px'">
+                    </app-arrow-up-svg>
+                }
+
             </div>
         </div>
     </header>

@@ -1,5 +1,5 @@
 import { AsyncPipe, DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { formatNowDate, formatTime } from '../../helpers-function/date-helpers-functions';
 import { ClickOutsideDirective } from '../../directives/click-outside'
@@ -34,15 +34,20 @@ export class NowDate implements OnInit{
   }
   
   constructor(){}
+  allDate!:ElementRef<HTMLDivElement>;
 
   ngOnInit(): void {
   }
 
   public showCalendar(){
-    this.isShowCalendar = true;
+    this.isShowCalendar = !this.isShowCalendar
   }
 
   public clickOutside(ev:boolean){
     this.isShowCalendar = ev;
+  }
+
+  public eventDivElement(ev:ElementRef){
+    this.allDate = ev;
   }
 }
