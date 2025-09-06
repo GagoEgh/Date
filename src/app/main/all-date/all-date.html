@@ -1,7 +1,7 @@
 <div class="calendar" #calendar >
     <header class="header" #header>
         <div class="dropDown">
-            <div class="title">hingshabti, 4 september</div>
+            <div class="title"(click)="updateTime()">{{date|date:'EEEE, d MMMM'}}</div>
             <div class="lift" (click)="changeTableHeight()">
                 @if(!isCloseTable){
                     <app-arrow-down-svg
@@ -19,10 +19,13 @@
         </div>
     </header>
     <div class="table" #table>
-        <nav class="nav">
-            <div class="time"></div>
+        <nav class="bar">
+            <div class="time" (click)="changeTime()">{{displayedPeriod()}}</div>
             <div class="arrow"></div>
         </nav>
+        <div class="main">
+            <app-day></app-day>
+        </div>
     </div>
     <footer class="footer">
         <div class="notification"></div>

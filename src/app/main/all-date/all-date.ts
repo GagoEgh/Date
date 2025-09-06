@@ -1,22 +1,42 @@
-import { Component, ElementRef, EventEmitter, inject, Input, Output, Renderer2, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy,ChangeDetectorRef,Component, effect, ElementRef, EventEmitter, inject, Input, Output, Renderer2, signal, ViewChild, WritableSignal } from '@angular/core';
 import { ArrowDownSvg } from '../../ui/icons/arrow-down-svg/arrow-down-svg';
 import { ArrowUpSvg } from '../../ui/icons/arrow-up-svg/arrow-up-svg';
+import { Day } from '../../components/day/day';
+import { DatePipe } from '@angular/common';
 
+enum Time {
+  day = "day",month = "month",year="year"
+}
 
 @Component({
   selector: 'app-all-date',
-  imports: [ArrowDownSvg, ArrowUpSvg ],
+  imports: [ArrowDownSvg, ArrowUpSvg,Day,DatePipe],
+  providers: [DatePipe],
   templateUrl: './all-date.html',
-  styleUrl: './all-date.scss'
+  styleUrl: './all-date.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AllDate {
+  private readonly renderer = inject(Renderer2);
+  private readonly datePipe = inject(DatePipe);
+  private readonly cdr = inject(ChangeDetectorRef);
+  private time = Time;
+  private changedTime:Time = this.time.day;
+
+  public date = new Date();
+  public displayedPeriod:WritableSignal<null|string> = signal(null);
   public isCloseTable = false;
   public pendingShowCalendar = false;
-  
-  private readonly renderer = inject(Renderer2);
+
+  constructor(){
+    this.displayedPeriod.set(this.datePipe.transform(this.date,'MMMM, yyyy'));
+  }
 
   @Output()eventDivElement = new EventEmitter()
   @Input() set isShowCalendar(value:boolean){
+    if(!value){
+      this.updateTime()
+    }
 
     if (!this.calendar) {
       this.pendingShowCalendar = value;
@@ -48,6 +68,27 @@ export class AllDate {
       this.renderer.removeClass(this.table.nativeElement, 'close');
       this.renderer.removeClass(this.calendar.nativeElement, 'close');
 
+    }
+  }
+
+    public updateTime(){
+    this.displayedPeriod.set(this.datePipe.transform(this.date,'MMMM, yyyy'));
+    this.changedTime = this.time.day;
+  }
+
+  public changeTime(){
+    if(this.changedTime === this.time.day){
+      this.changedTime = this.time.month;
+      this.displayedPeriod.set(this.datePipe.transform(this.date,'yyyy'));
+      this.cdr.markForCheck()
+      return
+    }
+
+    if(this.changedTime === this.time.month){
+      this.changedTime = this.time.year;
+      this.displayedPeriod.set('2020-2029');
+      this.cdr.markForCheck()
+      return
     }
   }
 

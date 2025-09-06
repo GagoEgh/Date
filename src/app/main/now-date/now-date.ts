@@ -4,18 +4,7 @@ import { Observable } from 'rxjs';
 import { formatNowDate, formatTime } from '../../helpers-function/date-helpers-functions';
 import { ClickOutsideDirective } from '../../directives/click-outside'
 import { AllDate } from '../all-date/all-date';
-
-  enum Week {
-    Sunday,
-    Monday,
-    Tuesday,
-    Wednesday,
-    Thursday,
-    Friday,
-    Saturday,
-  
-  }
-
+import { Week } from '../../ui/interfaces/date.interface';
 
 @Component({
   selector: 'app-now-date',
@@ -28,9 +17,11 @@ export class NowDate implements OnInit{
   public nowTime$: Observable<string> = formatTime();
   public nowDate$:Observable<string> = formatNowDate()
   public isShowCalendar = false;
+
+  private week = Week;
   get weekDay(){
     const day = this.date.getDay();
-    return Week[day]
+    return this.week[day]
   }
   
   constructor(){}

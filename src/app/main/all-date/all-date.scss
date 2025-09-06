@@ -14,10 +14,11 @@
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
         background: rgb(232 236 238);
+        border: 1px solid rgb(228, 230, 231);
         position: absolute;
-        top: 0;
+        top: -45px;
         left: 0;
-        width: inherit;
+        width: 99.5%;
         transition: transform 0.3s ease;
         z-index: 999;
 
@@ -27,8 +28,14 @@
             align-items: center;
             width: 100%;
             height: 50px;
+            cursor: default;
+            transition: color 0.7s ease;
             .title{
                 padding: 8px;
+                &:hover{
+                    color: rgb(197, 195, 195);
+                    transition: color 0.7s ease;
+                }
             }
             
             .lift{
@@ -37,7 +44,28 @@
             }
         }
 
-        .nav{
+    }
+
+    .header.open {
+        transform: translateY(320px);
+    }
+
+    .table{
+        padding: 10px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+
+        opacity: 0.8;
+        background: rgb(237, 241, 243);
+        overflow: hidden;
+        height: 300px;             
+        transition: opacity 1.2s ease;
+
+        .bar{
+            cursor: default;
+
             .time{
 
             }
@@ -46,23 +74,10 @@
 
             }
         }
-    }
 
-    .header.open {
-        transform: translateY(280px);
-    }
+        .calendar{
 
-    .table{
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-
-        opacity: 1;
-        background-color: gold;
-        overflow: hidden;
-        height: 300px;             
-        transition: opacity 1.2s ease;
+        }
     }
 
     .table.close {
