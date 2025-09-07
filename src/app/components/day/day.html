@@ -8,8 +8,13 @@
     </div>
     <div class="days">
         @for(date of calendar; track date){
-            <div class="day">
-                {{date|date:'d'}}
+            <div 
+                class="day" 
+                [class.otherMonth]="otherMonthStyle(date.date)"
+                [class.nowDate]="isSameDay(date.date)"
+                [class.activeDay]="date.activeDay"
+                (click)="chooseDay(date)">
+                {{date.date|date:'d'}}
             </div>  
         }
     </div>

@@ -1,3 +1,9 @@
+export interface IDate{
+  date:Date,
+  activeDay:boolean
+}
+
+
 export  enum Week {
     Sunday,
     Monday,

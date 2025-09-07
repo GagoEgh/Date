@@ -1,7 +1,7 @@
 <div class="calendar" #calendar >
     <header class="header" #header>
         <div class="dropDown">
-            <div class="title"(click)="updateTime()">{{date|date:'EEEE, d MMMM'}}</div>
+            <div class="title"(click)="showNowTime()">{{dateShow|date:'EEEE, d MMMM'}}</div>
             <div class="lift" (click)="changeTableHeight()">
                 @if(!isCloseTable){
                     <app-arrow-down-svg
@@ -14,7 +14,6 @@
                         [height]="'18px'">
                     </app-arrow-up-svg>
                 }
-
             </div>
         </div>
     </header>
@@ -22,14 +21,14 @@
         <nav class="bar">
             <div class="time" (click)="changeTime()">{{displayedPeriod()}}</div>
             <div class="arrow">
-                <app-previous (click)="previousDate()"></app-previous>
-                <app-next (click)="nextDate()"></app-next>
+                <app-next (click)="previousDate()"></app-next>
+                <app-previous (click)="nextDate()"></app-previous>
             </div>
         </nav>
         <div class="main">
             @switch(changedTime){
                 @case(time.day){
-                    <app-day [operetionType]="operetionType"></app-day>
+                    <app-day [newDate]="date"></app-day>
                 }
                 @case(time.month){
                     <app-month></app-month>

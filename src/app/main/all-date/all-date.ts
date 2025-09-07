@@ -3,11 +3,11 @@ import { ArrowDownSvg } from '../../ui/icons/arrow-down-svg/arrow-down-svg';
 import { ArrowUpSvg } from '../../ui/icons/arrow-up-svg/arrow-up-svg';
 import { Day } from '../../components/day/day';
 import { DatePipe } from '@angular/common';
-import { Operation, OperationType, Time } from '../../ui/interfaces/date.interface';
 import { Previous } from '../../ui/icons/previous-svg/previous';
 import { Next } from '../../ui/icons/next-svg/next';
 import { Month } from '../../components/month/month';
 import { Year } from '../../components/year/year';
+import { Time } from '../../ui/interfaces/date.interface';
 
 @Component({
   selector: 'app-all-date',
@@ -24,6 +24,7 @@ export class AllDate {
 
   public time = Time;
   public changedTime:Time = this.time.day;
+  public dateShow = new Date()
   public date = new Date();
   public displayedPeriod:WritableSignal<null|string> = signal(null);
   public isCloseTable = false;
@@ -31,13 +32,12 @@ export class AllDate {
 
   constructor(){
     this.displayedPeriod.set(this.datePipe.transform(this.date,'MMMM, yyyy'));
-    this.monthCount = this.date.getMonth()
   }
 
   @Output()eventDivElement = new EventEmitter()
   @Input() set isShowCalendar(value:boolean){
     if(!value){
-      this.updateTime()
+      this.showNowTime()
     }
 
     if (!this.calendar) {
@@ -73,9 +73,9 @@ export class AllDate {
     }
   }
 
-  public updateTime(){
-    this.displayedPeriod.set(this.datePipe.transform(this.date,'MMMM, yyyy'));
-    this.changedTime = this.time.day;
+  public showNowTime(){
+    this.date = new Date();
+    this.updateTime();
   }
 
   public changeTime(){
@@ -94,12 +94,12 @@ export class AllDate {
     }
   }
 
-  
-  public operetionType:OperationType = '';
   public previousDate(){
     switch(this.changedTime){
       case this.time.day:
-      this.operetionType = Operation.minus;
+        this.date.setMonth(this.date.getMonth() - 1);
+        this.date = new Date(this.date.getFullYear(),this.date.getMonth());
+        this.updateTime();
         break;
       case this.time.month:
         break;
@@ -108,25 +108,18 @@ export class AllDate {
     }
   }
 
-
-
-  monthCount = 0;
   public nextDate(){
     switch(this.changedTime){
       case this.time.day:
-        this.operetionType = Operation.plus;
-
-        this.monthCount +=1;
-
-        console.log('M OO N T H', this.monthCount)
+        this.date.setMonth(this.date.getMonth() + 1);
+        this.date = new Date(this.date.getFullYear(),this.date.getMonth());
+        this.updateTime();
         break;
       case this.time.month:
         break;
       case this.time.year:
         break;
     }
-
-    console.log('TYPE',this.operetionType);
   }
 
   private updateCalendarClass(value: boolean) {
@@ -138,6 +131,9 @@ export class AllDate {
     }
   }
 
-}
+  private updateTime(){
+    this.displayedPeriod.set(this.datePipe.transform(this.date,'MMMM, yyyy'));
+    this.changedTime = this.time.day;
+  }
 
-// enum Operation {plus='plus',minus='minus'}
+}
