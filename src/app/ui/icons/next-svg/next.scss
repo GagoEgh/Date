@@ -1,0 +1,8 @@
+.hover-bg{
+    cursor: pointer;
+    transition: all 0.5ms ease;
+    &:hover{
+        background-color: rgb(227 227 227);
+        transition: all 0.5ms ease;
+    }
+}

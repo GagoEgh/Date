@@ -1,1 +1,16 @@
-<p>day works!</p>
+<div class="calendar">
+    <div class="week">
+        @for(day of week; track day){
+            <div class="day">
+                {{day}}
+            </div>
+        }
+    </div>
+    <div class="days">
+        @for(date of calendar; track date){
+            <div class="day">
+                {{date|date:'d'}}
+            </div>  
+        }
+    </div>
+</div>

@@ -1,16 +1,17 @@
-import { ChangeDetectionStrategy,ChangeDetectorRef,Component, effect, ElementRef, EventEmitter, inject, Input, Output, Renderer2, signal, ViewChild, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy,ChangeDetectorRef,Component, ElementRef, EventEmitter, inject, Input, Output, Renderer2, signal, ViewChild, WritableSignal } from '@angular/core';
 import { ArrowDownSvg } from '../../ui/icons/arrow-down-svg/arrow-down-svg';
 import { ArrowUpSvg } from '../../ui/icons/arrow-up-svg/arrow-up-svg';
 import { Day } from '../../components/day/day';
 import { DatePipe } from '@angular/common';
-
-enum Time {
-  day = "day",month = "month",year="year"
-}
+import { Operation, OperationType, Time } from '../../ui/interfaces/date.interface';
+import { Previous } from '../../ui/icons/previous-svg/previous';
+import { Next } from '../../ui/icons/next-svg/next';
+import { Month } from '../../components/month/month';
+import { Year } from '../../components/year/year';
 
 @Component({
   selector: 'app-all-date',
-  imports: [ArrowDownSvg, ArrowUpSvg,Day,DatePipe],
+  imports: [ArrowDownSvg, ArrowUpSvg,Day,DatePipe,Previous, Next,Month,Year],
   providers: [DatePipe],
   templateUrl: './all-date.html',
   styleUrl: './all-date.scss',
@@ -20,9 +21,9 @@ export class AllDate {
   private readonly renderer = inject(Renderer2);
   private readonly datePipe = inject(DatePipe);
   private readonly cdr = inject(ChangeDetectorRef);
-  private time = Time;
-  private changedTime:Time = this.time.day;
 
+  public time = Time;
+  public changedTime:Time = this.time.day;
   public date = new Date();
   public displayedPeriod:WritableSignal<null|string> = signal(null);
   public isCloseTable = false;
@@ -30,6 +31,7 @@ export class AllDate {
 
   constructor(){
     this.displayedPeriod.set(this.datePipe.transform(this.date,'MMMM, yyyy'));
+    this.monthCount = this.date.getMonth()
   }
 
   @Output()eventDivElement = new EventEmitter()
@@ -71,7 +73,7 @@ export class AllDate {
     }
   }
 
-    public updateTime(){
+  public updateTime(){
     this.displayedPeriod.set(this.datePipe.transform(this.date,'MMMM, yyyy'));
     this.changedTime = this.time.day;
   }
@@ -92,6 +94,41 @@ export class AllDate {
     }
   }
 
+  
+  public operetionType:OperationType = '';
+  public previousDate(){
+    switch(this.changedTime){
+      case this.time.day:
+      this.operetionType = Operation.minus;
+        break;
+      case this.time.month:
+        break;
+      case this.time.year:
+        break;
+    }
+  }
+
+
+
+  monthCount = 0;
+  public nextDate(){
+    switch(this.changedTime){
+      case this.time.day:
+        this.operetionType = Operation.plus;
+
+        this.monthCount +=1;
+
+        console.log('M OO N T H', this.monthCount)
+        break;
+      case this.time.month:
+        break;
+      case this.time.year:
+        break;
+    }
+
+    console.log('TYPE',this.operetionType);
+  }
+
   private updateCalendarClass(value: boolean) {
     if (value) {
       this.renderer.addClass(this.calendar.nativeElement, 'showCalendar');
@@ -102,3 +139,5 @@ export class AllDate {
   }
 
 }
+
+// enum Operation {plus='plus',minus='minus'}

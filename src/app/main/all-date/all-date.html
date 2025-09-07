@@ -21,10 +21,24 @@
     <div class="table" #table>
         <nav class="bar">
             <div class="time" (click)="changeTime()">{{displayedPeriod()}}</div>
-            <div class="arrow"></div>
+            <div class="arrow">
+                <app-previous (click)="previousDate()"></app-previous>
+                <app-next (click)="nextDate()"></app-next>
+            </div>
         </nav>
         <div class="main">
-            <app-day></app-day>
+            @switch(changedTime){
+                @case(time.day){
+                    <app-day [operetionType]="operetionType"></app-day>
+                }
+                @case(time.month){
+                    <app-month></app-month>
+                }
+                @case(time.year){
+                    <app-year></app-year>
+                }
+            }
+            
         </div>
     </div>
     <footer class="footer">
