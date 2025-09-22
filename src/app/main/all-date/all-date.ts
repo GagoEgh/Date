@@ -85,14 +85,12 @@ export class AllDate {
     if(this.changedTime === this.time.day){
       this.changedTime = this.time.month;
       this.displayedPeriod.set(this.datePipe.transform(this.date(),'yyyy'));
-      this.cdr.markForCheck()
       return
     }
 
     if(this.changedTime === this.time.month){
       this.changedTime = this.time.year;
-      this.displayedPeriod.set('2020-2029');
-      this.cdr.markForCheck()
+      this.displayedPeriod.set(`${this.calendarService.inYear}-${this.calendarService.inYear+9}`);
       return
     }
   }
@@ -108,6 +106,12 @@ export class AllDate {
         this.getPrevMonthDate();
         break;
       case this.time.year:
+        if(this.calendarService.inYear>1925){
+          this.calendarService.toYears.set([]);
+          this.calendarService.inYear -= 10;
+          this.displayedPeriod.set(`${this.calendarService.inYear}-${this.calendarService.inYear+9}`);
+        }
+
         break;
     }
   }
@@ -124,6 +128,12 @@ export class AllDate {
         this.getNextMonthDate()
         break;
       case this.time.year:
+        if(this.calendarService.inYear<2119){
+          this.calendarService.toYears.set([]);
+          this.calendarService.inYear += 10;
+          this.displayedPeriod.set(`${this.calendarService.inYear}-${this.calendarService.inYear+9}`);
+        }
+
         break;
     }
   }
@@ -134,20 +144,32 @@ export class AllDate {
     this.displayedPeriod.set(this.datePipe.transform(this.date(),'MMMM, yyyy'));
   }
 
-  private getPrevMonthDate(){
-    let year = this.date().getFullYear();
-    year -=1;
-    this.date.set(new Date(year,1));
-    this.displayedPeriod.set(this.datePipe.transform(this.date(),'yyyy'));
-    this.calendarService.months = [];
+  private getPrevMonthDate(){ 
+    if(this.calendarService.inYear>1925){
+      let year = this.date().getFullYear();
+      year -=1;
+      const fromYear = this.calendarService.inYear;
+      if(year < fromYear){
+        this.calendarService.inYear =fromYear-10;
+      }
+      this.date.set(new Date(year,1));
+      this.displayedPeriod.set(this.datePipe.transform(this.date(),'yyyy'));
+      this.calendarService.months = [];
+    }
   }
 
   private getNextMonthDate(){
-    let year = this.date().getFullYear();
-    year +=1;
-    this.date.set(new Date(year,1))
-    this.displayedPeriod.set(this.datePipe.transform(this.date(),'yyyy'));
-    this.calendarService.months = [];
+    if(this.calendarService.inYear<2125){
+      let year = this.date().getFullYear();
+      year +=1;
+      const toYear = this.calendarService.inYear+9;
+      if(year>toYear){
+        this.calendarService.inYear = toYear+1;
+      }
+      this.date.set(new Date(year,1))
+      this.displayedPeriod.set(this.datePipe.transform(this.date(),'yyyy'));
+      this.calendarService.months = [];
+    }
   }
 
   private updateCalendarClass(value: boolean) {

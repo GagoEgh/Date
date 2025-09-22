@@ -1,1 +1,7 @@
-<p>year works!</p>
+<div class="years">
+    @for( year of toYears();track year){
+        <div class="year">
+            <p>{{year}}</p>
+        </div>
+    }
+</div>

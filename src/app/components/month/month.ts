@@ -36,6 +36,7 @@ export class Month{
   public showMonth(month:Date){
     const props = {time:this.time.day,month};
     this.changedTimeEvent.emit(props);
+    this.calendarService.months = [];
     this.cdr.markForCheck();
   }
 
