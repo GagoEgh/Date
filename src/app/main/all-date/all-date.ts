@@ -8,6 +8,8 @@ import { Next } from '../../ui/icons/next-svg/next';
 import { Month } from '../../components/month/month';
 import { Year } from '../../components/year/year';
 import { Time } from '../../ui/interfaces/date.interface';
+import { IChangedTimeEvent } from '../../ui/interfaces/change-time.interface';
+import { CalendarService } from '../../shared/services/calendar.service';
 
 @Component({
   selector: 'app-all-date',
@@ -20,18 +22,19 @@ import { Time } from '../../ui/interfaces/date.interface';
 export class AllDate {
   private readonly renderer = inject(Renderer2);
   private readonly datePipe = inject(DatePipe);
+  private calendarService = inject(CalendarService);
   private readonly cdr = inject(ChangeDetectorRef);
 
   public time = Time;
   public changedTime:Time = this.time.day;
   public dateShow = new Date()
-  public date = new Date();
+  public date = signal(new Date());
   public displayedPeriod:WritableSignal<null|string> = signal(null);
   public isCloseTable = false;
   public pendingShowCalendar = false;
 
   constructor(){
-    this.displayedPeriod.set(this.datePipe.transform(this.date,'MMMM, yyyy'));
+    this.displayedPeriod.set(this.datePipe.transform(this.date(),'MMMM, yyyy'));
   }
 
   @Output()eventDivElement = new EventEmitter()
@@ -74,14 +77,14 @@ export class AllDate {
   }
 
   public showNowTime(){
-    this.date = new Date();
+    this.date.set(new Date())
     this.updateTime();
   }
 
   public changeTime(){
     if(this.changedTime === this.time.day){
       this.changedTime = this.time.month;
-      this.displayedPeriod.set(this.datePipe.transform(this.date,'yyyy'));
+      this.displayedPeriod.set(this.datePipe.transform(this.date(),'yyyy'));
       this.cdr.markForCheck()
       return
     }
@@ -97,11 +100,16 @@ export class AllDate {
   public previousDate(){
     switch(this.changedTime){
       case this.time.day:
-        this.date.setMonth(this.date.getMonth() - 1);
-        this.date = new Date(this.date.getFullYear(),this.date.getMonth());
+        this.date().setMonth(this.date().getMonth() - 1);
+        this.date.set(new Date(this.date().getFullYear(),this.date().getMonth()))
         this.updateTime();
         break;
       case this.time.month:
+        let year = this.date().getFullYear();
+        year -=1;
+        this.date.set(new Date(year,1));
+        this.displayedPeriod.set(this.datePipe.transform(this.date(),'yyyy'));
+        this.calendarService.months = [];
         break;
       case this.time.year:
         break;
@@ -111,15 +119,28 @@ export class AllDate {
   public nextDate(){
     switch(this.changedTime){
       case this.time.day:
-        this.date.setMonth(this.date.getMonth() + 1);
-        this.date = new Date(this.date.getFullYear(),this.date.getMonth());
+        this.date().setMonth(this.date().getMonth() + 1);
+        this.date.set(new Date(this.date().getFullYear(),this.date().getMonth()))
         this.updateTime();
+        this.cdr.markForCheck();
         break;
       case this.time.month:
+        let year = this.date().getFullYear();
+        year +=1;
+        this.date.set(new Date(year,1))
+        this.displayedPeriod.set(this.datePipe.transform(this.date(),'yyyy'));
+        this.calendarService.months = [];
         break;
       case this.time.year:
         break;
     }
+  }
+
+  public changedTimeEvent(ev:IChangedTimeEvent){
+    // this.date = ev.month;
+    this.date.set(ev.month)
+    this.changedTime = ev.time;
+    this.displayedPeriod.set(this.datePipe.transform(this.date(),'MMMM, yyyy'));
   }
 
   private updateCalendarClass(value: boolean) {
@@ -132,7 +153,7 @@ export class AllDate {
   }
 
   private updateTime(){
-    this.displayedPeriod.set(this.datePipe.transform(this.date,'MMMM, yyyy'));
+    this.displayedPeriod.set(this.datePipe.transform(this.date(),'MMMM, yyyy'));
     this.changedTime = this.time.day;
   }
 

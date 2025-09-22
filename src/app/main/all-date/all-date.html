@@ -28,10 +28,10 @@
         <div class="main">
             @switch(changedTime){
                 @case(time.day){
-                    <app-day [newDate]="date"></app-day>
+                    <app-day [newDate]="date()"></app-day>
                 }
                 @case(time.month){
-                    <app-month></app-month>
+                    <app-month [newDate]="date()" (changedTimeEvent)="changedTimeEvent($event)"></app-month>
                 }
                 @case(time.year){
                     <app-year></app-year>

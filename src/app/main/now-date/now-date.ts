@@ -1,10 +1,11 @@
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { formatNowDate, formatTime } from '../../helpers-function/date-helpers-functions';
-import { ClickOutsideDirective } from '../../directives/click-outside'
+import { formatTime } from '../../helpers-function/date-helpers-functions';
+import { ClickOutsideDirective } from '../../shared/directives/click-outside'
 import { AllDate } from '../all-date/all-date';
 import { Week } from '../../ui/interfaces/date.interface';
+import { formatNowDate } from '../../helpers-function/formatNowDate';
 
 @Component({
   selector: 'app-now-date',

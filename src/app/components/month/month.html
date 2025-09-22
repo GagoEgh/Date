@@ -1,1 +1,8 @@
-<p>month works!</p>
+<div class="months">
+    @for(month of months; track month.getMonth()){
+        <p class="month" 
+            [class.otherYear]="otherYearStyle(month)"
+            [class.nowMonth]="isSameMonth(month)"
+            (click)="showMonth(month)">{{month | date:'MMM'}}</p>  
+    }
+</div>
