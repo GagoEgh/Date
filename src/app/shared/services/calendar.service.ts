@@ -1,9 +1,7 @@
-import { Injectable, signal } from "@angular/core";
-import { Time } from "../../ui/interfaces/date.interface";
+import { Injectable } from "@angular/core";
 
 @Injectable({providedIn:'root'})
 export class CalendarService{
-    public time = Time;
     public months:Date[]=[];
 
     public getMonths(year:number):Date[]{

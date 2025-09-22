@@ -11,10 +11,9 @@
             <div 
                 class="day" 
                 [class.otherMonth]="otherMonthStyle(date.date)"
-                [class.nowDate]="isSameDay(date.date)"
-                [class.activeDay]="date.activeDay"
                 (click)="chooseDay(date)">
-                {{date.date|date:'d'}}
+               <p [class.activeDay]="date.activeDay" 
+                  [class.nowDate]="isSameDay(date.date)">{{date.date|date:'d'}}</p> 
             </div>  
         }
     </div>

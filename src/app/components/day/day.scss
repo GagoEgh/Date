@@ -26,17 +26,33 @@
                 background-color: gainsboro;
                 transition: all 0.5ms;
             }
-        }
 
-        .activeDay{
-            border:1px solid rgba(79, 79, 244, 0.867);
-        }
+            .activeDay{
+                width: inherit;
+                height: inherit;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                border:1px solid rgba(79, 79, 244, 0.867);
+            }
 
-        .nowDate{
-            background-color: rgba(79, 79, 244, 0.867);
-            &:hover{
-                background-color: rgba(109, 109, 244, 0.867);
-                transition: all 0.5ms;
+            .nowDate{
+                width: inherit;
+                height: inherit;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                width: inherit;
+                height: inherit;
+                background-color: rgba(79, 79, 244, 0.867);
+                &:hover{
+                    background-color: rgba(109, 109, 244, 0.867);
+                    transition: all 0.5ms;
+                }
             }
         }
 

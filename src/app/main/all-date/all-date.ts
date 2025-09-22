@@ -105,11 +105,7 @@ export class AllDate {
         this.updateTime();
         break;
       case this.time.month:
-        let year = this.date().getFullYear();
-        year -=1;
-        this.date.set(new Date(year,1));
-        this.displayedPeriod.set(this.datePipe.transform(this.date(),'yyyy'));
-        this.calendarService.months = [];
+        this.getPrevMonthDate();
         break;
       case this.time.year:
         break;
@@ -125,11 +121,7 @@ export class AllDate {
         this.cdr.markForCheck();
         break;
       case this.time.month:
-        let year = this.date().getFullYear();
-        year +=1;
-        this.date.set(new Date(year,1))
-        this.displayedPeriod.set(this.datePipe.transform(this.date(),'yyyy'));
-        this.calendarService.months = [];
+        this.getNextMonthDate()
         break;
       case this.time.year:
         break;
@@ -137,10 +129,25 @@ export class AllDate {
   }
 
   public changedTimeEvent(ev:IChangedTimeEvent){
-    // this.date = ev.month;
     this.date.set(ev.month)
     this.changedTime = ev.time;
     this.displayedPeriod.set(this.datePipe.transform(this.date(),'MMMM, yyyy'));
+  }
+
+  private getPrevMonthDate(){
+    let year = this.date().getFullYear();
+    year -=1;
+    this.date.set(new Date(year,1));
+    this.displayedPeriod.set(this.datePipe.transform(this.date(),'yyyy'));
+    this.calendarService.months = [];
+  }
+
+  private getNextMonthDate(){
+    let year = this.date().getFullYear();
+    year +=1;
+    this.date.set(new Date(year,1))
+    this.displayedPeriod.set(this.datePipe.transform(this.date(),'yyyy'));
+    this.calendarService.months = [];
   }
 
   private updateCalendarClass(value: boolean) {

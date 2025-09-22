@@ -13,7 +13,7 @@ import { CalendarService } from '../../shared/services/calendar.service';
 })
 export class Month{
   private readonly cdr = inject(ChangeDetectorRef);
-   private calendarService = inject(CalendarService);
+  private calendarService = inject(CalendarService);
   private time = Time;
   public newDate = input.required<Date>();
   public year!: number;
@@ -30,8 +30,7 @@ export class Month{
 
   public isSameMonth(month:Date):boolean{
     const nowDate = new Date();
-    return nowDate.getMonth() === month.getMonth()?true:false
-
+    return nowDate.getMonth() === month.getMonth() && nowDate.getFullYear()===month.getFullYear()?true:false
   }
 
   public showMonth(month:Date){
